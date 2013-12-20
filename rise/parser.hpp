@@ -7,7 +7,7 @@
 
 namespace rise
 {
-    class parser : protected xmlpp::SaxParser
+    class parser : public xmlpp::SaxParser
     {
 	public:
 	    parser(document &_doc);
@@ -15,12 +15,13 @@ namespace rise
 
 	protected:
 	    virtual void on_start_element(const Glib::ustring &_name,
-                    			  const AttributeList &_properties) override;
+                    			  const AttributeList &_attributes) override;
 	    virtual void on_end_element(const Glib::ustring& name) override;
+	    virtual void on_comment(Glib::ustring const &_comment);
 
 	private:
 	    document &doc;
-	    std::stack<xmlpp::Element*> context;
+	    std::stack<rise::element*> context;
     };
 }
 
