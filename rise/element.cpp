@@ -8,6 +8,14 @@ rise::element::element(_xmlNode *_node)
 
 }
 
+rise::element_list rise::element::get_children()
+{
+    auto nodes = xmlpp::Element::get_children();
+    element_list list(nodes.size());
+    for(auto *node:nodes) list.push_back(static_cast<rise::element*>(node));
+    return list;
+}
+
 rise::element* rise::element::add_child(Glib::ustring const &_name, Glib::ustring const &_prefix)
 {
     auto *el = xmlpp::Element::add_child(_name, _prefix);
@@ -20,6 +28,23 @@ rise::element* rise::element::add_child(Glib::ustring const &_name, Glib::ustrin
 void rise::element::set_attribute(Glib::ustring const &_name, Glib::ustring const &_value, Glib::ustring const &_prefix)
 {
     xmlpp::Element::set_attribute(_name, _value, _prefix);
+}
+
+void rise::element::draw(Cairo::RefPtr<Cairo::Context> const &_cr)
+{
+    if(_cr)
+    {
+	_cr->save();
+	draw_vfunc(_cr);
+	auto children = get_children();
+	std::for_each(children.begin(), children.end(), [&_cr](rise::element *_element) {_element->draw(_cr);});
+	_cr->restore();
+    }
+}
+
+void rise::element::draw_vfunc(Cairo::RefPtr<Cairo::Context> const &_cr)
+{
+
 }
 
 rise::document const* rise::element::get_document() const

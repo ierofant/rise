@@ -1,7 +1,6 @@
 #ifndef RISE_PROPERTY_HPP_INCLUDED
 #define RISE_PROPERTY_HPP_INCLUDED
 
-#include <type_traits>
 #include <rise/element.hpp>
 
 namespace rise
@@ -54,6 +53,14 @@ namespace rise
 	    Glib::ustring name, prefix;
 	    value_type default_value;
     };
+
+
+
+    template<>
+    auto property<Glib::ustring>::get() const -> typename property<Glib::ustring>::value_type;
+
+    template<>
+    void property<Glib::ustring>::set(typename property<Glib::ustring>::value_type const &_value);
 }
 
 #endif //RISE_PROPERTY_HPP_INCLUDED

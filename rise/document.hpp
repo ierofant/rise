@@ -30,6 +30,7 @@ namespace rise
 	    element* get_root_node();
 	    void reg_factory(Glib::ustring const &_name, factory const &_factory, Glib::ustring const &_prefix = Glib::ustring());
 	    void unreg_factory(Glib::ustring const &_name, Glib::ustring const &_prefix = Glib::ustring());
+	    void draw(Cairo::RefPtr<Cairo::Context> const &_cr);
 
 	private:
 	    typedef std::map<std::pair<Glib::ustring, Glib::ustring>, factory> factory_map;

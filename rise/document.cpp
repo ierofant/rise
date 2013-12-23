@@ -1,10 +1,12 @@
 #include <rise/document.hpp>
 #include <rise/svg.hpp>
+#include <rise/g.hpp>
 
 rise::document::document(Glib::ustring const &_version)
 {
     set_internal_subset("svg", "-//W3C//DTD SVG 1.1//EN", "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd");
     reg_factory("svg", [](_xmlNode *_node){return new svg(_node);});
+    reg_factory("g", [](_xmlNode *_node){return new g(_node);});
 }
 
 rise::element* rise::document::create_root_node()
@@ -29,6 +31,12 @@ void rise::document::unreg_factory(Glib::ustring const &_name, Glib::ustring con
 {
     auto itr = f_map.find(std::make_pair(_name, _prefix));
     if(itr != f_map.end()) f_map.erase(itr);
+}
+
+void rise::document::draw(Cairo::RefPtr<Cairo::Context> const &_cr)
+{
+    auto *root = get_root_node();
+    if(_cr && root) root->draw(_cr);
 }
 
 rise::element* rise::document::create_element(Glib::ustring const &_name, _xmlNode *_node, Glib::ustring const &_prefix) const
