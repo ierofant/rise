@@ -2,6 +2,7 @@
 #define RISE_SVG_HPP_INCLUDED
 
 #include <rise/element.hpp>
+#include <rise/property.hpp>
 
 namespace rise
 {
@@ -10,6 +11,11 @@ namespace rise
 	public:
 	    svg(_xmlNode *_node);
 	    virtual ~svg() = default;
+
+	private:
+	    rise::property<Glib::ustring> property_version;
+	    rise::property<double> property_width;
+	    rise::property<double> property_height;
     };
 }
 
