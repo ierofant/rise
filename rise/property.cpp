@@ -1,13 +1,8 @@
 #include <rise/property.hpp>
 
-template<>
-auto rise::property<Glib::ustring>::get() const -> typename property<Glib::ustring>::value_type
+rise::property_base::property_base(rise::style &_style, Glib::ustring const &_name)
+    : style(_style),
+      name(_name)
 {
-    return element.get_attribute_value(name, prefix);
-}
 
-template<>
-void rise::property<Glib::ustring>::set(typename property<Glib::ustring>::value_type const &_value)
-{
-    element.set_attribute(name, _value, prefix);
 }

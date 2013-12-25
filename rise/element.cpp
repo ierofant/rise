@@ -2,6 +2,7 @@
 #include <rise/element.hpp>
 #include <rise/document.hpp>
 
+
 rise::element::element(_xmlNode *_node)
     : xmlpp::Element(_node)
 {
@@ -11,7 +12,7 @@ rise::element::element(_xmlNode *_node)
 rise::element_list rise::element::get_children()
 {
     auto nodes = xmlpp::Element::get_children();
-    element_list list(nodes.size());
+    element_list list;
     for(auto *node:nodes) list.push_back(static_cast<rise::element*>(node));
     return list;
 }
@@ -37,7 +38,7 @@ void rise::element::draw(Cairo::RefPtr<Cairo::Context> const &_cr)
 	_cr->save();
 	draw_vfunc(_cr);
 	auto children = get_children();
-	std::for_each(children.begin(), children.end(), [&_cr](rise::element *_element) {_element->draw(_cr);});
+	for(auto *child:children) child->draw(_cr);
 	_cr->restore();
     }
 }

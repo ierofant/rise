@@ -1,5 +1,6 @@
 #include <cstring>
 #include <rise/svg_widget.hpp>
+#include <rise/parser.hpp>
 
 rise::svg_widget::svg_widget()
     : Glib::ObjectBase(typeid(*this))
@@ -9,7 +10,9 @@ rise::svg_widget::svg_widget()
 
 void rise::svg_widget::set_source_file(Glib::ustring const &_filename)
 {
-    
+    rise::parser p(doc);
+    p.parse_file(_filename);
+    queue_resize();
 }
 
 void rise::svg_widget::on_realize()
@@ -52,6 +55,7 @@ void rise::svg_widget::on_size_allocate(Gtk::Allocation &_allocation)
 
 bool rise::svg_widget::on_draw(Cairo::RefPtr<Cairo::Context> const &_cr)
 {
+    Gtk::Widget::on_draw(_cr);
     doc.draw(_cr);
     return false;
 }

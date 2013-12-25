@@ -1,7 +1,7 @@
 #ifndef RISE_RECT_HPP_INCLUDED
 #define RISE_RECT_HPP_INCLUDED
 
-#include <rise/property.hpp>
+#include <rise/attribute.hpp>
 
 namespace rise
 {
@@ -18,10 +18,10 @@ namespace rise
 	    double get_height() const;
 
 	protected:
-	    void draw_vfunc(Cairo::RefPtr<Cairo::Context> const &_cr);
+	    void draw_vfunc(Cairo::RefPtr<Cairo::Context> const &_cr) override;
 	    
 	private:
-	    rise::property<double> property_x, property_y, property_width, property_height;
+	    rise::attribute<double> attribute_x, attribute_y, attribute_width, attribute_height;
     };
 }
 

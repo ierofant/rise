@@ -1,12 +1,14 @@
 #include <rise/document.hpp>
 #include <rise/svg.hpp>
 #include <rise/g.hpp>
+#include <rise/rect.hpp>
 
 rise::document::document(Glib::ustring const &_version)
 {
     set_internal_subset("svg", "-//W3C//DTD SVG 1.1//EN", "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd");
     reg_factory("svg", [](_xmlNode *_node){return new svg(_node);});
     reg_factory("g", [](_xmlNode *_node){return new g(_node);});
+    reg_factory("rect", [](_xmlNode *_node){return new rect(_node);});
 }
 
 rise::element* rise::document::create_root_node()
