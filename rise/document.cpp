@@ -2,6 +2,7 @@
 #include <rise/svg.hpp>
 #include <rise/g.hpp>
 #include <rise/rect.hpp>
+#include <rise/poly.hpp>
 
 rise::document::document(Glib::ustring const &_version)
 {
@@ -9,7 +10,20 @@ rise::document::document(Glib::ustring const &_version)
     reg_factory("svg", [](_xmlNode *_node){return new svg(_node);});
     reg_factory("g", [](_xmlNode *_node){return new g(_node);});
     reg_factory("rect", [](_xmlNode *_node){return new rect(_node);});
+    reg_factory("polygon", [](_xmlNode *_node){return new polygon(_node);});
+    reg_factory("polyline", [](_xmlNode *_node){return new polyline(_node);});
 }
+
+const rise::element* rise::document::get_root_node() const
+{
+    return static_cast<const rise::element*>(xmlpp::Document::get_root_node());
+}
+
+rise::element* rise::document::get_root_node()
+{
+    return static_cast<rise::element*>(xmlpp::Document::get_root_node());
+}
+
 
 rise::element* rise::document::create_root_node()
 {
@@ -17,11 +31,6 @@ rise::element* rise::document::create_root_node()
     auto *node = el->cobj();
     delete el;
     return create_element("svg", node); 
-}
-
-rise::element* rise::document::get_root_node()
-{
-    return static_cast<rise::element*>(xmlpp::Document::get_root_node());
 }
 
 void rise::document::reg_factory(Glib::ustring const &_name, factory const &_factory, Glib::ustring const &_prefix)

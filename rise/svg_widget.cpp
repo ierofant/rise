@@ -44,6 +44,20 @@ void rise::svg_widget::on_unrealize()
     Gtk::Widget::on_unrealize();
 }
 
+void rise::svg_widget::get_preferred_width_vfunc(int &_minimum_width, int &_natural_width) const
+{
+    auto *root = doc.get_root_node();
+    if(root) _minimum_width = _natural_width = std::ceil(std::atof(root->get_attribute_value("width").c_str()));
+    else Gtk::Widget::get_preferred_width_vfunc(_minimum_width, _natural_width);
+}
+
+void rise::svg_widget::get_preferred_height_vfunc(int &_minimum_height, int &_natural_height) const
+{
+    auto *root = doc.get_root_node();
+    if(root) _minimum_height = _natural_height = std::ceil(std::atof(root->get_attribute_value("height").c_str()));
+    else Gtk::Widget::get_preferred_height_vfunc(_minimum_height, _natural_height);
+}
+
 void rise::svg_widget::on_size_allocate(Gtk::Allocation &_allocation)
 {
     set_allocation(_allocation);

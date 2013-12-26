@@ -26,8 +26,9 @@ namespace rise
 	    using xmlpp::Document::write_to_string_formatted;
 	    using xmlpp::Document::write_to_stream;
 	    using xmlpp::Document::write_to_stream_formatted;
-	    element* create_root_node();
+	    const element* get_root_node() const;
 	    element* get_root_node();
+	    element* create_root_node();
 	    void reg_factory(Glib::ustring const &_name, factory const &_factory, Glib::ustring const &_prefix = Glib::ustring());
 	    void unreg_factory(Glib::ustring const &_name, Glib::ustring const &_prefix = Glib::ustring());
 	    void draw(Cairo::RefPtr<Cairo::Context> const &_cr);

@@ -44,6 +44,7 @@ auto rise::attribute<rise::points>::get() const -> typename attribute<rise::poin
 	char sym;
 	double x, y;
 	in >> x >> sym >> y;
+	points.push_back(point(x, y));
     }
     return points;
 }

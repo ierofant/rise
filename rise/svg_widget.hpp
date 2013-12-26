@@ -16,10 +16,12 @@ namespace rise
 	    void set_source_file(Glib::ustring const &_filename);
 
 	protected:
-	    void on_realize() override;
-	    void on_unrealize() override;
-	    void on_size_allocate(Gtk::Allocation &_allocation) override;
-	    bool on_draw(Cairo::RefPtr<Cairo::Context> const &_cr) override;
+	    virtual void on_realize() override;
+	    virtual void on_unrealize() override;
+	    virtual void get_preferred_width_vfunc(int &_minimum_width, int &_natural_width) const override;
+	    virtual void get_preferred_height_vfunc(int &_minimum_height, int &_natural_height) const override;
+	    virtual void on_size_allocate(Gtk::Allocation &_allocation) override;
+	    virtual bool on_draw(Cairo::RefPtr<Cairo::Context> const &_cr) override;
 
 	private:
 	    Glib::RefPtr<Gdk::Window> window;

@@ -51,6 +51,6 @@ void rise::element::draw_vfunc(Cairo::RefPtr<Cairo::Context> const &_cr)
 rise::document const* rise::element::get_document() const
 {
     auto *node = cobj();
-    auto *cdoc = node->doc;
-    return static_cast<document*>(cdoc->_private);
+    auto *doc = node->doc;
+    return static_cast<document*>(doc->_private);
 }
